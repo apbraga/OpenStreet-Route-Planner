@@ -27,19 +27,27 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
     return std::move(contents);
 }
 
+//function to get input within boundary and type restrictions
+//target variable is passed as reference, then the function won't need to return anything.
 void GetCoordinate(float &coordinate, std::string name){
+    //flag to check if input was completed
     bool pending = true;
+    //request user input for as long as a valid input is not given
     while(pending){
+        //prompt the user to input the value
         std::cout << "\n Input a number for 0 to 100 for " << name << "    :";
         std::cin >> coordinate;
-
+        //check if the input type is not valid, by checking if the cin failed, and if the input number is within the map limits 0>100
         if(std::cin.fail() || (coordinate < 0 || coordinate > 100)){
+            // inform user about the error
             std::cout << "\n ERROR - input is invalid, try again. Input must by a float from 0 to 100. \n";
+            // clear cin for the following input
             std::cin.clear();
             char buf[BUFSIZ];
             std::cin >> buf;
         }
         else{
+            // if input is valid, stop loop.
             pending = false;
         }
     }
@@ -74,7 +82,11 @@ int main(int argc, const char **argv)
     // TODO 1: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
     // user input for these values using std::cin. Pass the user input to the
     // RoutePlanner object below in place of 10, 10, 90, 90.
+
+    //initialize variable with an invalid value (not within 0>100)
     float start_x=-1.0, start_y=-1.0, end_x=-1.0, end_y=-1.0;
+    //prompt user for coordinate input until input is valid
+    //function will use the given variable as reference
     GetCoordinate(start_x, "start_x");
     GetCoordinate(start_y, "start_y");
     GetCoordinate(end_x, "end_x");

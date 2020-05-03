@@ -63,15 +63,12 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Remove that node from the open_list.
 // - Return the pointer.
 
-//helper for sort method, compare two nodes and return True if the fisrt node has lower cost, or False in case the second has lower cost
-bool Compare(const auto &node1, const auto &node2){
-    return ((node1->h_value + node1->g_value) < (node2->h_value + node2->g_value));
-}
 
 RouteModel::Node *RoutePlanner::NextNode() {
     //use c++ sort function to update open_list ascendingly with g+f cost
-    std::sort(open_list.begin(), open_list.end(), Compare;
-    });
+    std::sort(open_list.begin(), open_list.end(),[](const auto &node1, const auto &node2){
+        return ((node1->h_value + node1->g_value) < (node2->h_value + node2->g_value));
+        });
     //pop first element (lowest cost) from the open list
     RouteModel::Node *nextnode = open_list.front();
     open_list.erase(open_list.begin());
